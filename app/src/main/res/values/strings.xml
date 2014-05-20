@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RSSGoebel</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_articles_list">ArticlesListActivity</string>
+
+    <string name="update_articles">Aktualisieren</string>
+    <string name="category_text_view">Kategorie</string>
+    
+</resources>
