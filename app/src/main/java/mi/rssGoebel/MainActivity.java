@@ -6,15 +6,19 @@ package mi.rssGoebel;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
 	
 	private ListView listView;
 	private ArrayAdapter<String> adapter_listy;
-	private DBoperacje baza;
+	private DBOperation baza;
 	private List<String> categories;
 	private Button refreshButton;
 	private RssSaxParserTask rssSaxParserTask;
@@ -49,10 +53,11 @@ public class MainActivity extends ActionBarActivity {
 		
 		listView = (ListView)findViewById(R.id.categoryList);
         refreshButton = (Button)findViewById(R.id.refreshButton);
+
 		
 		dialogPobierz = new MyDialogFragment();
 		
-		baza = new DBoperacje(this);
+		baza = new DBOperation(this);
 		baza.open();
 		
 		//Convert HasSet to ArrayList
@@ -89,11 +94,14 @@ public class MainActivity extends ActionBarActivity {
 				String url = "http://www.th-nuernberg.de/institutionen/fakultaeten/informatik/rss2.xml";
 
 
-				
 				rssSaxParserTask = new RssSaxParserTask(baza, dialogPobierz, MainActivity.this);
-				rssSaxParserTask.execute(url,url,url,url,url,url,url,url,url,url); //jest 10, wiec po 10%	
+				rssSaxParserTask.execute(url,url,url,url,url,url,url,url,url,url);
 			}
 		});
+
+
+
+
 		
 	}
 
@@ -106,7 +114,52 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-	
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        Log.d("RSSGoebel1", String.valueOf(id));
+        if (id == 2131165263) {
+
+            final EditText txtUrl = new EditText(this);
+
+            txtUrl.setHint("http://www.th-nuernberg.de/institutionen/fakultaeten/informatik/rss2.xml");
+            txtUrl.setText("http://www.th-nuernberg.de/institutionen/fakultaeten/informatik/rss2.xml");
+
+            new AlertDialog.Builder(this)
+                    .setTitle("RSS-Feed hinzufügen")
+                    .setMessage("Fügen Sie ein RSS-Feed hinzu!")
+                    .setView(txtUrl)
+                    .setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            String url = txtUrl.getText().toString();
+
+                            rssSaxParserTask = new RssSaxParserTask(baza, dialogPobierz, MainActivity.this);
+                            rssSaxParserTask.execute(url);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }
+                    })
+                    .show();
+
+        }
+
+        if (id == R.id.menu_add) {
+
+            baza.deleteAll();
+
+        }
+
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
 	 @Override
 	  protected void onResume() {
 	    baza.open();

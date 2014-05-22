@@ -32,7 +32,7 @@ public class RssSaxHandler extends DefaultHandler {
 		builderText = new StringBuilder();
 		//articles = new ArrayList<Article>();
 		
-		Log.d("Micromate Reader", "startDOCUMENT");
+		Log.d("RSSGoebel", "startDOCUMENT");
 	}
 	
 	
@@ -47,7 +47,7 @@ public class RssSaxHandler extends DefaultHandler {
 		 if(localName.equalsIgnoreCase("item")) { 
 			 	inItem = true;						//
 	            article = new Article();			//
-	            Log.d("Micromate Reader", "startElement - inItem");
+	            Log.d("RSSGoebel", "startElement - inItem");
 	     }
 	}
 
@@ -62,7 +62,7 @@ public class RssSaxHandler extends DefaultHandler {
 		//if (inItem == true)
 		if(currentElement) {
 			builderText.append(ch, start, length);     //
-        	Log.d("Micromate Reader", "characters - cuurentElemnet");
+        	Log.d("RSSGoebel", "characters - cuurentElemnet");
 		}
 	}
 
@@ -81,7 +81,7 @@ public class RssSaxHandler extends DefaultHandler {
 	       
 			if(localName.equalsIgnoreCase("title")) {
 				article.setTitle(builderText.toString().trim());
-				Log.d("Micromate Reader", "endElement - TITLE");
+				Log.d("RSSGoebel", "endElement - TITLE");
 			}	
 			else if(localName.equalsIgnoreCase("link"))
 				article.setUrl(builderText.toString().trim());
@@ -92,7 +92,7 @@ public class RssSaxHandler extends DefaultHandler {
 			else if(localName.equals("category"))
             {
                 article.setCategory("OHM Informatik");
-                Log.d("Micromate Reader", builderText.toString());
+                Log.d("RSSGoebel", builderText.toString());
 
             }
 

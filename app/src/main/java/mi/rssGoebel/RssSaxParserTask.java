@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class RssSaxParserTask extends AsyncTask <String, Integer, List<Article>> {
 
 	//ArticlesListAdapter articleListAdapter;
-	DBoperacje baza;
+	DBOperation baza;
 	List<Article> articles;
 	RssSaxHandler rssSaxHandler;
 	MyDialogFragment dialogPobierz;
@@ -30,7 +30,7 @@ public class RssSaxParserTask extends AsyncTask <String, Integer, List<Article>>
 	//Konstruktor
 	public RssSaxParserTask( 
 			//ArticlesListAdapter articleListAdapter, 
-			DBoperacje baza,
+			DBOperation baza,
 			MyDialogFragment dialogPobierz,
 			FragmentActivity activity) {
 	
@@ -69,6 +69,7 @@ public class RssSaxParserTask extends AsyncTask <String, Integer, List<Article>>
 			
 			} catch (IOException e) {
 				Log.e("SAX XML", "Exception", e);
+
 			}
 		}
   
@@ -89,15 +90,13 @@ public class RssSaxParserTask extends AsyncTask <String, Integer, List<Article>>
 		if (articles.isEmpty()) {
 			 Log.d("SAX XML ARTICLES", "ARTICLES ARE EMPTY !!!");
 	       
-	         //Toast.makeText(getApplicationContext(),
+
 			 Toast.makeText(activity,
-	         	 "???", Toast.LENGTH_SHORT).show();
+	         	 "Keine Artikel vorhanden", Toast.LENGTH_SHORT).show();
 	         return;
 	    }
 		
-		aktualizacjaBazy(articles);	
-		// aktualizacjaAdaptera();
-
+		aktualizacjaBazy(articles);
 		
 	}
 
@@ -105,8 +104,7 @@ public class RssSaxParserTask extends AsyncTask <String, Integer, List<Article>>
 
 
 private List<Article> parseXml(String strUrl) throws ParserConfigurationException,SAXException,IOException {
-//private List<Article> parseXml(String strUrl) throws Exception {
-	  
+
         URL xmlUrl = new URL(strUrl);
 	        
         SAXParserFactory saxFactory = SAXParserFactory.newInstance();
@@ -125,7 +123,7 @@ private List<Article> parseXml(String strUrl) throws ParserConfigurationExceptio
 
 private void aktualizacjaBazy(List<Article> articles) {
 	 
-	baza.deleteAll();
+	//baza.deleteAll();
 	
 	for (Article article : articles)
 		baza.addToDatabase(new Article(
@@ -136,15 +134,6 @@ private void aktualizacjaBazy(List<Article> articles) {
 				article.getCategory()));
 	    
 }
-
-/*
-private void aktualizacjaAdaptera() {
-
-	articleListAdapter.clear();
-	articleListAdapter.addAll(baza.getAllData());
-	articleListAdapter.notifyDataSetChanged();
-}
-*/
 
 }
 

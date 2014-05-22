@@ -19,7 +19,7 @@ public class ArticlesListActivity extends FragmentActivity {
 	private	ListView listView;	
 	private List<Article> articles; 
 	private ArticlesListAdapter articleListAdapter;   
-	private DBoperacje baza;
+	private DBOperation baza;
 	private Intent intent;
 	private String category;
 	private TextView categoryTextView;
@@ -36,7 +36,7 @@ public class ArticlesListActivity extends FragmentActivity {
 		categoryTextView = (TextView)findViewById(R.id.textView1); 
 		
 		articles = new ArrayList<Article>();
-		baza = new DBoperacje(this);
+		baza = new DBOperation(this);
 
 		intent = getIntent();
 	    category = intent.getStringExtra("category");

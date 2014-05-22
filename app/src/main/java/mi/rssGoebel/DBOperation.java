@@ -11,13 +11,13 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-public class DBoperacje {
+public class DBOperation {
 	
 	private SQLiteDatabase db; 	
 	private DBopenHelper dbOpenHelper;
 	
 	
-	public DBoperacje(Context context) {  
+	public DBOperation(Context context) {
 		  dbOpenHelper = new DBopenHelper(context);
 	  }
 	
