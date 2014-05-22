@@ -1,4 +1,4 @@
-package com.micromate.micromatereader;
+package mi.rssGoebel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,10 @@ public class RssSaxHandler extends DefaultHandler {
 	private Article article;
 	private List<Article> articles = new ArrayList<Article>(); 
 	
-	private StringBuilder builderText; //dla przechwytywania znak�w w metodzie charakters
-	
-	//flaga dla przechwytywania aktualnej pozycji w dokumencie
-	//flagi pozycji musza byc zastosowane gdy dokument posiada znaczniki o tej samej nazwie
+	private StringBuilder builderText;
 	private boolean inItem = false;     
 	
-	private boolean currentElement = false; //pomiedzy znacznikami moga byc znaki dlatego trzeba stosowac flage
+	private boolean currentElement = false;
 	
 	public List<Article> getArticles() {
 		return articles;

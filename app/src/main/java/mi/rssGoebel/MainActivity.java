@@ -1,6 +1,6 @@
 
 
-package com.micromate.micromatereader;
+package mi.rssGoebel;
 
 
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,23 +18,37 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends FragmentActivity {
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.micromate.micromatereader.R;
+
+public class MainActivity extends ActionBarActivity {
 	
 	private ListView listView;
 	private ArrayAdapter<String> adapter_listy;
 	private DBoperacje baza;
 	private List<String> categories;
-	private Button uaktualnijBazeButton;
+	private Button refreshButton;
 	private RssSaxParserTask rssSaxParserTask;
 	private MyDialogFragment dialogPobierz;
+
+    ActionBar ab;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+        ab = getSupportActionBar();
+        ab.setTitle("RSSGoebel");
 		
 		listView = (ListView)findViewById(R.id.categoryList);
-		uaktualnijBazeButton = (Button)findViewById(R.id.button1);
+        refreshButton = (Button)findViewById(R.id.refreshButton);
 		
 		dialogPobierz = new MyDialogFragment();
 		
@@ -64,9 +79,9 @@ public class MainActivity extends FragmentActivity {
              
           }
         });
-        
-    	//AKTUALIZACJA BAZY 	
-		uaktualnijBazeButton.setOnClickListener(new View.OnClickListener() {   
+
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -81,6 +96,16 @@ public class MainActivity extends FragmentActivity {
 		});
 		
 	}
+
+     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_settings);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+        return super.onCreateOptionsMenu(menu);
+    }
 	
 	 @Override
 	  protected void onResume() {

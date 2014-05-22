@@ -1,32 +1,23 @@
-//BAZA DANYCH
-/*
- * Klasa SQLiteOpenHelper - konfigurowanie baz danych i otwieranie polaczen
- *  1. Implementacja cyklu zycia
- *  - onCreate i onUpgrade - FRAMEWORK wywo¸uje te metody kiedy sa potrzebne
- *  Jesli baza danych jeszcze nie istnieje aplikacjia ja tworzy
- */
 
-package com.micromate.micromatereader;
+
+package mi.rssGoebel;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-// SQLiteOpenHelper - sluzy do konfigurowania baz i otwierania polaczen
+// SQLiteOpenHelper
 public class DBopenHelper extends SQLiteOpenHelper{
 
-	  //Wersja Bazy Danych                                    
+
 	  private static final int WERSJA_BAZY = 2;
 
-	
-	  //Nazwa Bazy Danych
+
 	  private static final String NAZWA_BAZY = "micromate_rss.db";
 
-	  //Nazwa tablicy
 	  public static final String NAZWA_TABELI = "articles";
-	 
-	  //Nazwa kolumn
+
 	  public static final String NAZWA_KOLUMNY_ID = "id";
 	  public static final String NAZWA_KOLUMNY_TITLE = "title";   
 	  public static final String NAZWA_KOLUMNY_DESCRIPTION = "description";   		 
@@ -45,16 +36,12 @@ public class DBopenHelper extends SQLiteOpenHelper{
 	      NAZWA_KOLUMNY_PUBDATE + " text not null," +
 	      NAZWA_KOLUMNY_CATEGORY + " text not null);";
 
-	  
-	  //W konstruktorze podajemy NAZWE i WERSJE bazy oraz WYWOLUJEMY konstuktor klasy nadrzednej 
+
 	  public DBopenHelper(Context context) {
 	    super(context, NAZWA_BAZY, null, WERSJA_BAZY);
 	  }
 
-	  
-	  //PRZESLANIANIE metod cyklu zycia 
-	  
-	  //na Starcie -
+
 	  @Override
 	  public void onCreate(SQLiteDatabase bazaDanych) {
 		  
@@ -62,7 +49,6 @@ public class DBopenHelper extends SQLiteOpenHelper{
 	  
 	  }
 
-	  //na Update -
 	  @Override
 	  public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 	    

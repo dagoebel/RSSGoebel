@@ -1,4 +1,4 @@
-package com.micromate.micromatereader;
+package mi.rssGoebel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.micromate.micromatereader.R;
 
 public class ArticlesListAdapter extends ArrayAdapter<Article>{
 

@@ -18,14 +18,14 @@
          android:id="@+id/categoryList"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:layout_above="@+id/button1"
+         android:layout_above="@+id/refreshButton"
          android:layout_alignParentLeft="true"
          android:layout_below="@+id/imageView1" >
 
     </ListView>
 
      <Button
-         android:id="@+id/button1"
+         android:id="@+id/refreshButton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"

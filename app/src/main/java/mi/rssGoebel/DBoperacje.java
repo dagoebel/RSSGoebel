@@ -1,4 +1,4 @@
-package com.micromate.micromatereader;
+package mi.rssGoebel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,8 +36,8 @@ public class DBoperacje {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 	
-    //orginal 
-    // Dodawanie wyniku do bazy
+    //orginal
+
     public void addToDatabase(Article article) {
     	
         ContentValues values = new ContentValues();
@@ -51,8 +51,7 @@ public class DBoperacje {
         db.insert(DBopenHelper.NAZWA_TABELI, null, values);
         //bazaDanych.close(); // Closing database connection
     }
-        
-    // Getting All WYNIKI
+
     public List<Article> getAllData() {
        
     	List<Article> lista = new ArrayList<Article>();
@@ -60,19 +59,15 @@ public class DBoperacje {
         // Select All Query      
         String selectQuery = "SELECT  * FROM " + DBopenHelper.NAZWA_TABELI;
         Cursor kursor = db.rawQuery(selectQuery, null);
+
         
-        //Drugi sposob pobierania danych z bazy
-        //segregowanie wedlug kolumny CZAS (najkrotszy bedzie pierwszy)
-        //Cursor kursor = bazaDanych.query(OpenHelperWynik.NAZWA_TABELI, wszystkieKolumny, null, null, null, null,OpenHelperWynik.NAZWA_KOLUMNY_CZAS); 
-        
-        //int licznik = 1; // dla numeru pozycji na liscie
+        //int licznik = 1;
         		
         // looping through all rows and adding to list
         if (kursor.moveToFirst()) {
             do {
                 Article wynik = new Article();
-                
-                //pobieranie danych z bazy danych
+
                 wynik.setId(Integer.parseInt(kursor.getString(0)));
                 wynik.setTitle(kursor.getString(1));
                 wynik.setDescription(kursor.getString(2));
@@ -80,7 +75,7 @@ public class DBoperacje {
                 wynik.setPubDate(kursor.getString(4));
                 wynik.setCategory(kursor.getString(5));
                 
-                //licznik (nr pozycji na liscie - mozna dodac do ziarna)
+
                 //wynik.setNr(licznik++);
                 
                 // Adding contact to list
@@ -107,8 +102,7 @@ public class DBoperacje {
         if (kursor.moveToFirst()) {
             do {
                 Article wynik = new Article();
-                
-                //pobieranie danych z bazy danych
+
                 wynik.setId(Integer.parseInt(kursor.getString(0)));
                 wynik.setTitle(kursor.getString(1));
                 wynik.setDescription(kursor.getString(2));
@@ -116,7 +110,7 @@ public class DBoperacje {
                 wynik.setPubDate(kursor.getString(4));
                 wynik.setCategory(kursor.getString(5));
                 
-                //licznik (nr pozycji na liscie - mozna dodac do ziarna)
+
                 //wynik.setNr(licznik++);
                 
                 // Adding contact to list
@@ -133,7 +127,7 @@ public class DBoperacje {
     // Getting Categories by Articles
     public Set<String> getCategoryColumn() {
        
-    	Set<String> lista = new HashSet<String>();  //HashSet Nie dubluje element—w
+    	Set<String> lista = new HashSet<String>();
              
         // Select All Query      
         String selectQuery = "SELECT category FROM " + DBopenHelper.NAZWA_TABELI;
@@ -145,7 +139,7 @@ public class DBoperacje {
                 //Article wynik = new Article();
             	String category;
                 
-                //pobieranie danych z bazy danych
+
                 category = kursor.getString(0);
                 
                 // Adding contact to list
@@ -159,18 +153,8 @@ public class DBoperacje {
         return lista;
     }
     
-    
-    
-    /* Usuwanie poprawic
-    public boolean deleteCountry(long _index) {
-        String where = KEY_ID + "=" + _index;
-        return db.delete(DB_TABLE, where , null) > 0;
-    }
-    */
-    
-    public void deleteAll() { //przypisuje nr id = 1 
-    	//bazaDanych.execSQL("delete * from "+ OpenHelperWynik.NAZWA_TABELI);
-        //bazaDanych.delete(OpenHelperWynik.NAZWA_TABELI, "1", null);
+
+    public void deleteAll() {
         db.delete(DBopenHelper.NAZWA_TABELI, null, null);
     }
     

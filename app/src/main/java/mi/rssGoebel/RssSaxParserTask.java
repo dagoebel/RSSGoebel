@@ -1,4 +1,4 @@
-package com.micromate.micromatereader;
+package mi.rssGoebel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,26 +44,21 @@ public class RssSaxParserTask extends AsyncTask <String, Integer, List<Article>>
 	//
 	@Override
 	protected void onPreExecute() {
-		dialogPobierz.show(activity.getSupportFragmentManager(), "missiles"); //DIALOG POSTEPU
+		dialogPobierz.show(activity.getSupportFragmentManager(), "missiles");
 	}
 
-	//Implementacji metody doInBackground
-	//wynik metody jest przekazywany jako argument do metody onPostExecute(). 
 	@Override
 	protected List<Article> doInBackground(String... urls) {
   
 		articles = new ArrayList<Article>(); 
-		
-		//to jest dla manifestu w metoda onPostExecute - sprawdzam czy zosta�y pobrane dane
-		//z null tez dzial ale �atwiej i w�asciwie uzyc metode isEmty()
-		//articles = null;               //LISTA DOMYSLNIE NIE JEST null jest PUSTA, znajdujace sie w niej elemnty sa null
+
  
-		for (int i = 0; i < urls.length; i++) { //Petla dla progresu w dialogu
+		for (int i = 0; i < urls.length; i++) {
 			try {
 				
 				articles = parseXml(urls[0]); 
 				
-				publishProgress((int) (((i+1) / (float) urls.length) * 100));  //aktualizowanie pasku postepu 
+				publishProgress((int) (((i+1) / (float) urls.length) * 100));
       
 	  
 			} catch (ParserConfigurationException pce){
@@ -80,17 +75,12 @@ public class RssSaxParserTask extends AsyncTask <String, Integer, List<Article>>
 		return articles;
 	}
 
-	//Wywo�anie metody publishProgress - prowadzi do wywolania metody onProgressUpdate
-	//przyjmuje argumentu typu integer (mozna tez zastosowac typ String)
 	@Override
 	protected void onProgressUpdate(Integer... values) {          
-		dialogPobierz.setPostep(values[0]);  //DIALOG POSTEPU
+		dialogPobierz.setPostep(values[0]);
 	}
 
 
-
-	//Metoda ta s�uzy do aktualizowania elemnt�w interfejsu uzytkowanika, 
-	//dlatego nalezy wyswietlic wynik za pomoca adaptera widoku ListView.
 	@Override
 	protected void onPostExecute(List<Article> articles) {
 
@@ -99,14 +89,14 @@ public class RssSaxParserTask extends AsyncTask <String, Integer, List<Article>>
 		if (articles.isEmpty()) {
 			 Log.d("SAX XML ARTICLES", "ARTICLES ARE EMPTY !!!");
 	       
-	         //Toast.makeText(getApplicationContext(),    // w MainActivity
-			 Toast.makeText(activity,                     // gdy pobierane activity (kontekst) w konstrukotrze
+	         //Toast.makeText(getApplicationContext(),
+			 Toast.makeText(activity,
 	         	 "???", Toast.LENGTH_SHORT).show();
 	         return;
 	    }
 		
 		aktualizacjaBazy(articles);	
-		// aktualizacjaAdaptera(); //czyli listy
+		// aktualizacjaAdaptera();
 
 		
 	}
@@ -133,8 +123,6 @@ private List<Article> parseXml(String strUrl) throws ParserConfigurationExceptio
 }
 
 
-
-//private void aktualizacjaBazy() {
 private void aktualizacjaBazy(List<Article> articles) {
 	 
 	baza.deleteAll();
@@ -151,8 +139,7 @@ private void aktualizacjaBazy(List<Article> articles) {
 
 /*
 private void aktualizacjaAdaptera() {
-		  		    
-	//Dla wlasnego adaptera - aktualizacja listy
+
 	articleListAdapter.clear();
 	articleListAdapter.addAll(baza.getAllData());
 	articleListAdapter.notifyDataSetChanged();

@@ -1,4 +1,4 @@
-package com.micromate.micromatereader;
+package mi.rssGoebel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.micromate.micromatereader.R;
+
 public class ArticlesListActivity extends FragmentActivity {
 
 	private	ListView listView;	
@@ -21,6 +23,8 @@ public class ArticlesListActivity extends FragmentActivity {
 	private Intent intent;
 	private String category;
 	private TextView categoryTextView;
+
+    private String feedUrl;
 	
 		
 	@Override
@@ -32,34 +36,30 @@ public class ArticlesListActivity extends FragmentActivity {
 		categoryTextView = (TextView)findViewById(R.id.textView1); 
 		
 		articles = new ArrayList<Article>();
-		baza = new DBoperacje(this);   //BAZA DANYCH
-	
-		//odebranie danej z nadrzednej aktywnosci
+		baza = new DBoperacje(this);
+
 		intent = getIntent();
 	    category = intent.getStringExtra("category");
-		
+
 	    categoryTextView.setText(category);
 	    
 		baza.open(); 	
 		
 		if (category.equals("Alle"))
-			pobierzAllData(); 		
+			getAllData();
 		else 
-			pobierzCategoryData();
+			getFeedData();
 			
-		
-		//WYBIERANIE POZYCJI Z LISTY
+
 		listView.setOnItemClickListener(new OnItemClickListener() {   
  
 		        @Override
 		        public void onItemClick(AdapterView<?> arg0, View v, int pos, long id) {
 		        	
 		            Intent myIntent = new Intent(getApplicationContext(), ArticleActivity.class);
-		            
-		            //myIntent.putExtra("feedTitle", myRSSHandler.getChannelTitle());
+
 		            myIntent.putExtra("articleTitle",articles.get(pos).getTitle());
 		            myIntent.putExtra("articleCategory",articles.get(pos).getCategory());
-		            //myIntent.putExtra("articleUrl", RSSHandler.articles.get(pos).getUrl().toString());
 		            myIntent.putExtra("articleUrl", articles.get(pos).getUrl());
 		            
 		            startActivity(myIntent);
@@ -81,20 +81,18 @@ public class ArticlesListActivity extends FragmentActivity {
 	  }
 	  
 	  
-	  private void pobierzAllData() {
+	  private void getAllData() {
 		     
-			articles = baza.getAllData(); //POBIERANIE ARTICLES z BAZY DANYCH
-		    
-		    //articleListAdapter = new ArticleListAdapter(getApplicationContext(), R.layout.activity_main, articles);   //Context mozn przekazac te� tak
-			//articleListAdapter = new ArticleListAdapter(MainActivity.this, R.layout.activity_main, articles);         //w metodzie: setOnClickListener nawet trzeba tak
+			articles = baza.getAllData();
+
 		    articleListAdapter = new ArticlesListAdapter(this, R.layout.activity_articles_list, articles);
 			listView.setAdapter(articleListAdapter);
 		
 		}
 	  
-	  private void pobierzCategoryData() {
+	  private void getFeedData() {
 		     
-			articles = baza.getCategory(category); //POBIERANIE ARTICLES z BAZY DANYCH
+			articles = baza.getCategory(category);
 				    
 		    articleListAdapter = new ArticlesListAdapter(this, R.layout.activity_articles_list, articles);
 			listView.setAdapter(articleListAdapter);

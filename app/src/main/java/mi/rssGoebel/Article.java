@@ -1,4 +1,4 @@
-package com.micromate.micromatereader;
+package mi.rssGoebel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -79,11 +79,11 @@ public class Article {
 		this.category = category;
 	}
 
-	//Formatowanie Daty i Godziny
+
 	public String getDate() {
-		//wzor daty z pliku xml
+
 		SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss ZZZZZ",Locale.UK);
-		//moj wzor daty
+
 		SimpleDateFormat mojformater = new SimpleDateFormat("dd.MM.yy, HH:mm",Locale.GERMANY);
 	    
 		Date date = null;
