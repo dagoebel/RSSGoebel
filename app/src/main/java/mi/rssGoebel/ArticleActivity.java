@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.micromate.micromatereader.R;
+import mi.rssGoebel.R;
 
 public class ArticleActivity extends Activity {
 

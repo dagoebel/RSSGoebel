@@ -14,7 +14,7 @@ public class DBopenHelper extends SQLiteOpenHelper{
 	  private static final int WERSJA_BAZY = 2;
 
 
-	  private static final String NAZWA_BAZY = "micromate_rss.db";
+	  private static final String NAZWA_BAZY = "dagoebel_rss.db";
 
 	  public static final String NAZWA_TABELI = "articles";
 

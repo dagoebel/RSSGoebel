@@ -12,7 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.micromate.micromatereader.R;
+import mi.rssGoebel.R;
 
 public class ArticlesListActivity extends FragmentActivity {
 

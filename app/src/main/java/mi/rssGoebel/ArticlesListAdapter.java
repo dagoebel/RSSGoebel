@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.micromate.micromatereader.R;
+import mi.rssGoebel.R;
 
 public class ArticlesListAdapter extends ArrayAdapter<Article>{
 
